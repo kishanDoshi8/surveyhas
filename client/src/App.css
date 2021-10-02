@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+
+:root {
+    --dark-color: #023047;
+    --primary-color: #219ebc;
+    --secondary-color: #ffb703;
+    --light-color: #8ecae6;
+}
+
+*, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto Condensed', sans-serif;
+    background-color: var(--dark-color);
+    color: var(--light-color);
+}
+
+.question-container {
+    font-size: 2rem;
+    font-weight: 700;
+    position: relative;
+    margin: 2rem;
+    padding: 1rem 2rem;
+    border: 8px solid var(--secondary-color);
+    border-radius: 16px;
+    min-height: 150px;
+}
+
+.answer-container {
+    margin: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.answer-box {
+    flex: 0 49%;
+    font-size: 2rem;
+    border: 5px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.answer-box .points {
+    padding-left: 2rem;
+    border-left: 2px solid var(--secondary-color);
+}
+
+.controlls-panel {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 1rem 2rem;
+}
+
+.controlls-panel button {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border: 5px solid var(--secondary-color);
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 1rem;
+}

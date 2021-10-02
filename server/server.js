@@ -41,12 +41,14 @@ async function getResponses(questionNumber) {
         }
     }
 
-    responses = [...responses].sort((a, b) => b[1] - a[1])
     
+    responses = [...responses].sort((a, b) => b[1] - a[1]);
+
     let result = {
         totalQuestions,
         question,
-        responses: []
+        responses: [],
+        currentQuestion: questionNumber,
     }
 
     for(let response of responses) {
