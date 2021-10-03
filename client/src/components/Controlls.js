@@ -12,8 +12,8 @@ const Controlls = ({currentQuestion, totalQuestions, changeQuestion}) => {
 
     return (
         <div className="controlls-panel">
-            {currentQuestion != 1 && <button onClick={previousQuestion}>prev</button>}
-            {currentQuestion < totalQuestions && <button onClick={nextQuestion}>next</button>}
+            {currentQuestion != 1 && <button onClick={previousQuestion}><i class="fas fa-chevron-circle-left"></i></button>}
+            {currentQuestion < totalQuestions && <button onClick={nextQuestion}><i class="fas fa-chevron-circle-right"></i></button>}
         </div>
     );
 }
