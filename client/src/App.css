@@ -80,6 +80,14 @@ button {
     margin-left: 2rem;
 }
 
+button.go-to-question {
+    font-size: 1.7rem;
+}
+
+button.go-to-question.active {
+    color: var(--secondary-color);
+}
+
 .error-modal {
     position: absolute;
     padding: 1rem 2rem;
