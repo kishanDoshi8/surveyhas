@@ -1,5 +1,4 @@
 import React from 'react';
-import usTypewriter from '../customHooks/usTypewriter';
 
 const QuestionBox = ({question, currentQuestion}) => {
     return (

@@ -1,4 +1,4 @@
-const usTypewriter = (text, div) => {
+const typewriter = (text, div) => {
     if(!text || !div) return;
 
     let typingDelay = 80;
@@ -16,4 +16,4 @@ const usTypewriter = (text, div) => {
     type();
 }
 
-export default usTypewriter;
+export default typewriter;
