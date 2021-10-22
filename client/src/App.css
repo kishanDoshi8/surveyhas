@@ -18,6 +18,11 @@
 
 button {
     cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: translateY(-3px);
 }
 
 .App {
@@ -40,6 +45,7 @@ button {
 .answer-container {
     margin: 2rem;
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 1rem;
 }
@@ -166,13 +172,54 @@ button.go-to-question.active {
     animation-iteration-count: infinite;
 }
 
-/* @keyframes loading {
-    0% {height: 25px;}
-    25% {height: 10px;}
-    50% {height: 2px;}
-    75% {height: 10px;}
-    1000% {height: 25px;}
-} */
+.score-board {
+    display: flex;
+    border: 3px solid var(--primary-color);
+    padding: 2rem;
+    margin: 2rem 4rem;
+    border-radius: 10px;
+    gap: 2rem;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.team-1-name, .team-2-name {
+    padding: 1rem 2rem;
+    border: 2px solid var(--secondary-color);
+    border-radius: 20px;
+    font-size: 2rem;
+}
+
+.team-1-name.selected, .team-2-name.selected, .reset-team-selected.selected {
+    background-color: var(--secondary-color);
+    color: var(--dark-color);
+}
+
+.team-1-score, .team-2-score {
+    text-align: center;
+    margin: 1rem 0 0 0;
+    font-size: 2.5rem;
+}
+
+.reset-team-selected {
+    outline: none;
+    border: 2px solid var(--light-color);
+    border-radius: 50%;
+    font-size: 2rem;
+    font-weight: 700;
+    height: 5rem;
+    width: 5rem;
+    padding: 1rem;
+}
+
+.reset-team-selected.selected i {
+    color: var(--dark-color);
+    font-size: 2.5rem;
+}
+
+.reset-team-selected i {
+    background: transparent;
+}
 
 @keyframes loading {
     0% { transform: translateY(10px); }
