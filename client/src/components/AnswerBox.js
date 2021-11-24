@@ -23,8 +23,18 @@ export default function AnswerBox({ responses, teamSelected, teamsInfo, setTeams
     useEffect(() => {
         return () => {
             setAnswered([]);
+            resetWrongAnswers();
         }
     }, [responses])
+
+    let resetWrongAnswers = () => {
+        let teams = [...teamsInfo]
+        let teamA = [...teams][0];
+        teamA.wrongAnswers = 0;
+        let teamB = [...teams][1];
+        teamB.wrongAnswers = 0;
+        setTeamsInfo(teams);
+    }
     
     let keyUpEvent = (event) => {
         if(teamSelected === -1) {
@@ -32,14 +42,25 @@ export default function AnswerBox({ responses, teamSelected, teamsInfo, setTeams
             return;
         }
         const isKeyX = event.key === 'x';
-        if(isKeyX) console.log("Wrong answer!");
+        if(isKeyX) {
+            let teams = [...teamsInfo]
+            let team = [...teams][teamSelected];
+            if(team.wrongAnswers >= 3) return;
+            team.wrongAnswers++;
+            setTeamsInfo(teams);
+        } 
         
         const number = +event.key;
         if(isNaN(number)) return;
+        console.log(teamsInfo[teamSelected.wrongAnswers]);
         showAnswer(number-1);
     }
-
+    
     const showAnswer = (index) => {
+        // if(teamsInfo[teamSelected].wrongAnswers <= 3) {
+        //     setError(`Team: ${teamsInfo[teamSelected].name} cannot play this round. A Maximum of 3 strikes are allowed.`);
+        //     return;
+        // }
         if(index >= responses.length) return;
         if(answeredRef.current.includes(index)) return;
         setAnswered([...answeredRef.current, index] );

@@ -17,8 +17,8 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [teamSelected, setTeamSelected] = useState(-1);
   const [teamsInfo, setTeamsInfo] = useState([
-    {name: 'Wololo', score: 0},
-    {name: 'Soul', score: 0}
+    {name: 'Wololo', score: 0, wrongAnswers: 0},
+    {name: 'Soul', score: 0, wrongAnswers: 0}
   ]);
 
   useEffect(() => {

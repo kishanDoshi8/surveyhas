@@ -183,6 +183,17 @@ button.go-to-question.active {
     align-items: center;
 }
 
+.score-board-team-1, .score-board-team-2 {
+    display: flex;
+    gap: 2rem;
+}
+
+.wrong-answer-x {
+    color: red;
+    font-size: 2rem;
+    margin: 5px;
+}
+
 .team-1-name, .team-2-name {
     padding: 1rem 2rem;
     border: 2px solid var(--secondary-color);
