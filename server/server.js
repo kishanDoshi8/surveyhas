@@ -70,6 +70,6 @@ app.get("/questions/:id", async (req, res) => {
     res.status(200).json(response);
 });
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5005;
 
 app.listen(port, () => console.log(`Server started on ${port}`));
