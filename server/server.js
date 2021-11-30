@@ -63,7 +63,7 @@ async function getResponses(questionNumber) {
     return result;
 }
 
-app.get("/questions/:id", async (req, res) => {
+app.get("/api/questions/:id", async (req, res) => {
     let response = await getResponses(req.params.id);
     if(!response) return res.status(404).json({ msg: "Question not found" });
 
