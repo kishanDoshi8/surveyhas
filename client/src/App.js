@@ -31,7 +31,7 @@ function App() {
     // Reset Team selected
     setTeamSelected(-1);
     setLoading(true);
-    axios.get('/questions/' + currentQuestion)
+    axios.get('/api/questions/' + currentQuestion)
       .then(res => {
         setQA(res.data);
         setTotalQuestions(res.data.totalQuestions);
