@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import Typewriter from '../customHooks/Typewriter';
+import Typewriter from '../../customHooks/Typewriter';
 
 export default function AnswerBox({ responses, teamSelected, teamsInfo, setTeamsInfo, setError }) {
 
