@@ -233,13 +233,16 @@ button.go-to-question.active {
 }
 
 .game-setup {
-    width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
-    flex-direction: column;
     align-items: center;
+}
+
+.game-setup-form {
+    display: flex;
     gap: 2rem;
+    flex-direction: column;
 }
 
 .game-setup label {
@@ -270,6 +273,18 @@ button.go-to-question.active {
     color: var(--dark-color);
     background-color: var(--primary-color);
     border-color: var(--dark-color);
+}
+
+#share-email span i {
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: 0.3s;
+}
+
+#share-email span i:hover {
+    transform: translateY(-3px);
 }
 
 @keyframes loading {

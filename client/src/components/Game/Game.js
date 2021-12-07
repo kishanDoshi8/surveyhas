@@ -50,7 +50,7 @@ function Game() {
       <AnswerBox responses={qa.responses} teamSelected={teamSelected} teamsInfo={teamsInfo} setTeamsInfo={setTeamsInfo} setError={setError} />
       <Controlls currentQuestion={qa.currentQuestion} totalQuestions={totalQuestions} changeQuestion={setCurrentQuestion}/>
       {error && <ErrorModal message={error.toString()} removeError={() => setError('')}/>}
-      {loading && <Loading loading={loading} />}
+      {loading && <Loading />}
     </div>
   );
 }
