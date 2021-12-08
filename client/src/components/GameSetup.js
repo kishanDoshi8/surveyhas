@@ -40,8 +40,8 @@ const GameSetup = () => {
         <div className="game-setup">
             <form className="game-setup-form" onSubmit={setupGame}>
                 <label id="share-email">Copy email address 
-                    {!copied && <span onClick={copyEmailToClipboard}><i class="far fa-copy"></i></span>}
-                    {copied && <span onClick={copyEmailToClipboard}><i class="fas fa-copy"></i></span>}
+                    {!copied && <span onClick={copyEmailToClipboard}><i className="far fa-copy"></i></span>}
+                    {copied && <span onClick={copyEmailToClipboard}><i className="fas fa-copy"></i></span>}
                 </label>
                 
                 <div className="game-sheet-id">
