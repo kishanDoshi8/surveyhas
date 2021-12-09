@@ -22,7 +22,7 @@ const GameSetup = () => {
             sheetNumber: gameSheetNumber,
             fileId: gameSheetId,
         }).then(res => {
-            if(res.status === 200) navigate('/game');
+            if(res.status === 200) navigate('/teams');
         }).catch(err => {
             let message = typeof err.response !== "undefined" ? err.response.data.msg : err.message;
             setError(message);

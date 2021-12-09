@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
+import { ADD_SCORES, ADD_WRONG_ASNWER, RESET_WRONG_ASNWER } from '../../actions/TeamsActions';
 import Typewriter from '../../customHooks/Typewriter';
+import { useTeams, useUpdateTeams } from '../../Providers/TeamsContext';
 
-export default function AnswerBox({ responses, teamSelected, teamsInfo, setTeamsInfo, setError }) {
+export default function AnswerBox({ responses, teamSelected, setError }) {
 
     const [answered, _setAnswered] = useState([]);
     const answeredRef = useRef(answered);
@@ -9,6 +11,9 @@ export default function AnswerBox({ responses, teamSelected, teamsInfo, setTeams
         answeredRef.current = data;
         _setAnswered(data);
     }
+
+    const teamsInfo = useTeams();
+    const updateTeams = useUpdateTeams();
 
     useEffect(() => {
         if(!responses || responses.length <= 0) return;
@@ -23,18 +28,9 @@ export default function AnswerBox({ responses, teamSelected, teamsInfo, setTeams
     useEffect(() => {
         return () => {
             setAnswered([]);
-            resetWrongAnswers();
+            updateTeams(RESET_WRONG_ASNWER);
         }
-    }, [responses])
-
-    let resetWrongAnswers = () => {
-        let teams = [...teamsInfo]
-        let teamA = [...teams][0];
-        teamA.wrongAnswers = 0;
-        let teamB = [...teams][1];
-        teamB.wrongAnswers = 0;
-        setTeamsInfo(teams);
-    }
+    }, [responses]);
     
     let keyUpEvent = (event) => {
         if(teamSelected === -1) {
@@ -42,25 +38,21 @@ export default function AnswerBox({ responses, teamSelected, teamsInfo, setTeams
             return;
         }
         const isKeyX = event.key === 'x';
+        console.log(event.key);
         if(isKeyX) {
-            let teams = [...teamsInfo]
-            let team = [...teams][teamSelected];
-            if(team.wrongAnswers >= 3) return;
-            team.wrongAnswers++;
-            setTeamsInfo(teams);
+            updateTeams(ADD_WRONG_ASNWER, teamSelected);
         } 
         
         const number = +event.key;
         if(isNaN(number)) return;
-        console.log(teamsInfo[teamSelected.wrongAnswers]);
         showAnswer(number-1);
     }
     
     const showAnswer = (index) => {
-        // if(teamsInfo[teamSelected].wrongAnswers <= 3) {
-        //     setError(`Team: ${teamsInfo[teamSelected].name} cannot play this round. A Maximum of 3 strikes are allowed.`);
-        //     return;
-        // }
+        if(teamsInfo[teamSelected].wrongAnswers >= 3) {
+            setError(`Team: ${teamsInfo[teamSelected].teamName} cannot play this round. A Maximum of 3 strikes are allowed.`);
+            return;
+        }
         if(index >= responses.length) return;
         if(answeredRef.current.includes(index)) return;
         setAnswered([...answeredRef.current, index] );
@@ -77,10 +69,7 @@ export default function AnswerBox({ responses, teamSelected, teamsInfo, setTeams
 
             // Only update team score when a team is selected
             if(teamSelected > -1) {
-                let teams = [...teamsInfo]
-                let team = [...teams][teamSelected];
-                team.score += points;
-                setTeamsInfo(teams);
+                updateTeams(ADD_SCORES, { teamSelected, points });
             }
         }, 1500);
     }

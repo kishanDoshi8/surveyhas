@@ -15,10 +15,6 @@ function Game() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [teamSelected, setTeamSelected] = useState(-1);
-  const [teamsInfo, setTeamsInfo] = useState([
-    {name: 'Wololo', score: 0, wrongAnswers: 0},
-    {name: 'Soul', score: 0, wrongAnswers: 0}
-  ]);
 
   useEffect(() => {
     setError('');
@@ -45,9 +41,9 @@ function Game() {
 
   return (
     <div>
-      <ScoreBoard teamSelected={teamSelected} setTeamSelected={setTeamSelected} teamsInfo={teamsInfo} setTeamsInfo={setTeamsInfo} />
+      <ScoreBoard teamSelected={teamSelected} setTeamSelected={setTeamSelected} />
       <QuestionBox question={qa.question} currentQuestion={qa.currentQuestion} />
-      <AnswerBox responses={qa.responses} teamSelected={teamSelected} teamsInfo={teamsInfo} setTeamsInfo={setTeamsInfo} setError={setError} />
+      <AnswerBox responses={qa.responses} teamSelected={teamSelected} setError={setError} />
       <Controlls currentQuestion={qa.currentQuestion} totalQuestions={totalQuestions} changeQuestion={setCurrentQuestion}/>
       {error && <ErrorModal message={error.toString()} removeError={() => setError('')}/>}
       {loading && <Loading />}
