@@ -12,6 +12,8 @@ router.get("/:id", async (req, res) => {
     const sheetNumber  = require("./gameSetup").getSheetNumber();
     const questionNumber = req.params.id;
     
+    if(!fileId || !sheetNumber) return res.status(400).json({ msg: "Please set up the game before you play." });
+    
     let response = await getResponses(fileId, sheetNumber, questionNumber);
     if(!response) return res.status(404).json({ msg: "Question not found" });
 

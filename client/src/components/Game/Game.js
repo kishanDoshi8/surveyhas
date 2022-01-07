@@ -32,7 +32,8 @@ function Game() {
         setTotalQuestions(res.data.totalQuestions);
       })
       .catch((err) => {
-        setError(err);
+        let message = typeof err.response !== "undefined" ? err.response.data.msg : err.message;
+        setError(message);
       })
       .finally(() => {
         setLoading(false);

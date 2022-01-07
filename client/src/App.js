@@ -13,7 +13,15 @@ function App() {
 
   return (
     <div className="App">
-      <TeamProvider>
+      <nav>
+        <h1>Survey Has</h1>
+        <ul>
+          <li><a href="/">Setup</a></li>
+          <li><a href="/teams">Teams</a></li>
+          <li><a href="/game">Game</a></li>
+        </ul>
+      </nav>
+      <TeamProvider className="container">
         <Router>
           <Routes >
               <Route path="/" element={<GameSetup />} />

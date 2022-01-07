@@ -25,7 +25,42 @@ button:hover {
     transform: translateY(-3px);
 }
 
+nav {
+    position: sticky;
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+    padding: 1rem 2rem;
+    border-bottom: solid 2px var(--light-color);
+}
+
+nav ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    align-items: center;
+}
+
+nav ul li {
+    transition: 0.3s;
+    font-size: 1.3rem;
+}
+
+nav ul li a {
+    text-decoration: none;
+}
+
+nav ul li:hover, nav ul li a:hover {
+    color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
 .App {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
     position: relative;
     max-width: 1300px;
     margin: auto;
