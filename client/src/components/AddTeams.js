@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import ErrorModal from './ErrorModal';
 import { useNavigate } from "react-router-dom";
 import { useTeams, useUpdateTeamA, useUpdateTeamB } from '../Providers/TeamsContext';
+import useLocalStorage from '../customHooks/useLocalStorage';
 
 const AddTeams = () => {
     const teams = useTeams();
     const updateTeamA = useUpdateTeamA();
     const updateTeamB = useUpdateTeamB();
     const [error, setError] = useState(false);
+    const [getTeams, setTeams] = useLocalStorage("teams");
     
     const navigate = useNavigate();
 
@@ -19,6 +21,15 @@ const AddTeams = () => {
         if(teams[0].players.length === 0 || teams[1].players.length === 0) {
             return setError("Both teams should have atleast 1 player");
         }
+
+        teams[0].score = 0;
+        teams[1].score = 0;
+        teams[0].wrongAnswers = 0;
+        teams[1].wrongAnswers = 0;
+        teams[0].currentPlayer = 0;
+        teams[1].currentPlayer = 0;
+
+        setTeams(teams);
 
         navigate("/game");
     }

@@ -1,5 +1,6 @@
 import React, { useState, useContext, createContext } from 'react';
-import { ADD_SCORES, ADD_WRONG_ASNWER, REMOVE_WRONG_ASNWER, RESET_WRONG_ASNWER } from '../actions/TeamsActions';
+import { ADD_SCORES, ADD_WRONG_ASNWER, REMOVE_WRONG_ASNWER, RESET_WRONG_ASNWER, NEXT_PLAYER, SET_TEAMS_INFO } from '../actions/TeamsActions';
+import useLocalStorage from '../customHooks/useLocalStorage';
 
 const TeamContext = createContext();
 const TeamAUpdateContext = createContext();
@@ -23,10 +24,20 @@ export const useUpdateTeams = () => {
 }
 
 export const TeamProvider = ({ children }) => {
-    const [teams, setTeams] = useState([
-        { teamName: "Team A", players: [], currentPlayer: 0, wrongAnswers: 0, score: 0 },
-        { teamName: "Team B", players: [], currentPlayer: 0, wrongAnswers: 0, score: 0 }
-    ]);
+    const teamsStorage = JSON.parse(window.localStorage.getItem("teams"));
+
+    const [teams, setTeams] = useState(() => {
+        if(teamsStorage === null || teamsStorage.length === 0) {
+            return [
+                { teamName: "Team A", players: [], currentPlayer: 0, wrongAnswers: 0, score: 0 },
+                { teamName: "Team B", players: [], currentPlayer: 0, wrongAnswers: 0, score: 0 }
+            ]
+        } else {
+            return [
+                { teamName: teamsStorage[0].teamName, players: teamsStorage[0].players, currentPlayer: teamsStorage[0].currentPlayer, wrongAnswers: 0, score: teamsStorage[0].score },
+                { teamName: teamsStorage[1].teamName, players: teamsStorage[1].players, currentPlayer: teamsStorage[1].currentPlayer, wrongAnswers: 0, score: teamsStorage[1].score }]
+        }
+    });
 
     const updateTeamA = e => {
         const { name, value } = e.target;
@@ -50,15 +61,15 @@ export const TeamProvider = ({ children }) => {
         const { name, value } = e.target;
         if(name === "team") {
             setTeams(prevState => {
-                let teamA = prevState[1];
-                teamA.teamName = value;
+                let teamB = prevState[1];
+                teamB.teamName = value;
                 return [...prevState]
             })
         } else if (name.startsWith("player")) {
             let player = +name.slice(-1);
             setTeams(prevState => {
-                let teamA = prevState[1];
-                teamA.players[player-1] = value
+                let teamB = prevState[1];
+                teamB.players[player-1] = value
                 return [...prevState]
             })
         }
@@ -84,7 +95,6 @@ export const TeamProvider = ({ children }) => {
         let teamB = [...teamsInfo][1];
         teamB.wrongAnswers = 0;
         setTeams(teamsInfo);
-        console.log(teams);
     }
 
     const addWrongAnswer = teamSelected => {
@@ -100,13 +110,30 @@ export const TeamProvider = ({ children }) => {
             }
         }
         setTeams(teamsInfo);
-        console.log(teams); 
+    }
+
+    const nextPlayer = teamSelected => {
+        let teamsInfo = [...teams]
+        let team = [...teamsInfo][teamSelected];
+        if(team.wrongAnswers <= 2) {
+            if(team.players.length-1 <= team.currentPlayer) {
+                team.currentPlayer = 0;
+            } else {
+                team.currentPlayer++;
+            }
+        }
+        setTeams(teamsInfo);
     }
 
     const addScores = ({ teamSelected, points }) => {
         let teamsInfo = [...teams]
         let team = [...teamsInfo][teamSelected];
         team.score += points;
+        setTeams(teamsInfo);
+        window.localStorage.setItem("teams", JSON.stringify(teamsInfo));
+    }
+
+    const setTeamsInfo = (teamsInfo) => {
         setTeams(teamsInfo);
     }
 
@@ -123,6 +150,13 @@ export const TeamProvider = ({ children }) => {
         
             case ADD_SCORES:
                 return addScores(payload);
+
+            case NEXT_PLAYER:
+                return nextPlayer(payload);
+
+            case SET_TEAMS_INFO:
+                return setTeamsInfo(payload);
+
             default:
                 break;
         }

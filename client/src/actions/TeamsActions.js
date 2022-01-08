@@ -1,5 +1,7 @@
 export const REMOVE_WRONG_ASNWER = 'REMOVE_WRONG_ASNWER';
 export const RESET_WRONG_ASNWER = 'RESET_WRONG_ASNWER';
 export const ADD_WRONG_ASNWER = 'ADD_WRONG_ASNWER';
+export const NEXT_PLAYER = 'NEXT_PLAYER';
+export const SET_TEAMS_INFO = 'SET_TEAMS_INFO';
 
 export const ADD_SCORES = "ADD_SCORES";

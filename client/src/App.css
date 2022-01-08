@@ -107,11 +107,16 @@ nav ul li:hover, nav ul li a:hover {
 }
 
 .controlls-panel {
-    position: fixed;
+    /* position: fixed;
     bottom: 0;
-    right: 0;
+    right: 0; */
     padding: 1rem 2rem;
     background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    overflow-y: auto;
 }
 
 .controlls-panel button {

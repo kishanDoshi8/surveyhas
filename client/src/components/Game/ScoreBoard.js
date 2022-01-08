@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { REMOVE_WRONG_ASNWER } from '../../actions/TeamsActions';
+import { REMOVE_WRONG_ASNWER, SET_TEAMS_INFO } from '../../actions/TeamsActions';
 import { useTeams, useUpdateTeams } from '../../Providers/TeamsContext';
+import useLocalStorage from '../../customHooks/useLocalStorage';
 
 const ScoreBoard = ({ teamSelected, setTeamSelected }) => {
 
@@ -8,6 +9,14 @@ const ScoreBoard = ({ teamSelected, setTeamSelected }) => {
     const [teamBWrongAnswers, setTeamBWrongAnswers] = useState([]);
     const updateTeams = useUpdateTeams();
     const teamsInfo = useTeams();
+    const [getTeams, setTeams] = useLocalStorage("teams");
+
+    useEffect(() => {
+        console.log(getTeams);
+        if(!getTeams === null || getTeams.length === 0) {
+            updateTeams(SET_TEAMS_INFO, getTeams);
+        }
+    }, [])
 
     useEffect(() => {
         let teamAWrong = teamsInfo[0].wrongAnswers;
@@ -67,7 +76,7 @@ const ScoreBoard = ({ teamSelected, setTeamSelected }) => {
                     </div>
                 </div>
                 <div className="player-list">
-                    {teamsInfo[0].players.map((player, i) => (
+                    {teamsInfo[1].players.map((player, i) => (
                         <p className={teamSelected == 1 ? 
                             (teamsInfo[1].currentPlayer === i ? "player-name player-selected" : "player-name")
                             : (teamsInfo[1].currentPlayer === i ? "player-name player-selected-next" : "player-name")}>

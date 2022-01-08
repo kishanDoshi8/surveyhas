@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
-import { ADD_SCORES, ADD_WRONG_ASNWER, RESET_WRONG_ASNWER } from '../../actions/TeamsActions';
+import { ADD_SCORES, ADD_WRONG_ASNWER, NEXT_PLAYER, RESET_WRONG_ASNWER, SET_TEAMS_INFO } from '../../actions/TeamsActions';
 import Typewriter from '../../customHooks/Typewriter';
 import { useTeams, useUpdateTeams } from '../../Providers/TeamsContext';
+import useLocalStorage from '../../customHooks/useLocalStorage';
 
 export default function AnswerBox({ responses, teamSelected, setError }) {
 
@@ -14,6 +15,8 @@ export default function AnswerBox({ responses, teamSelected, setError }) {
 
     const teamsInfo = useTeams();
     const updateTeams = useUpdateTeams();
+
+    const [_, setTeams] = useLocalStorage("teams");
 
     useEffect(() => {
         if(!responses || responses.length <= 0) return;
@@ -38,7 +41,7 @@ export default function AnswerBox({ responses, teamSelected, setError }) {
             return;
         }
         const isKeyX = event.key === 'x';
-        console.log(event.key);
+        
         if(isKeyX) {
             updateTeams(ADD_WRONG_ASNWER, teamSelected);
         } 
@@ -49,7 +52,7 @@ export default function AnswerBox({ responses, teamSelected, setError }) {
     }
     
     const showAnswer = (index) => {
-        if(teamsInfo[teamSelected].wrongAnswers >= 3) {
+        if(teamSelected !== -1 && teamsInfo[teamSelected].wrongAnswers >= 3) {
             setError(`Team: ${teamsInfo[teamSelected].teamName} cannot play this round. A Maximum of 3 strikes are allowed.`);
             return;
         }
@@ -70,6 +73,7 @@ export default function AnswerBox({ responses, teamSelected, setError }) {
             // Only update team score when a team is selected
             if(teamSelected > -1) {
                 updateTeams(ADD_SCORES, { teamSelected, points });
+                updateTeams(NEXT_PLAYER, teamSelected);
             }
         }, 1500);
     }
