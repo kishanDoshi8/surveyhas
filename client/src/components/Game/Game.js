@@ -6,6 +6,7 @@ import Controlls from './Controlls';
 import ErrorModal from '../ErrorModal';
 import Loading from '../Loading';
 import ScoreBoard from './ScoreBoard';
+import Trivia from './Trivia';
 
 function Game() {
 
@@ -15,6 +16,7 @@ function Game() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [teamSelected, setTeamSelected] = useState(-1);
+  const [trivia, setTrivia] = useState(false);
 
   useEffect(() => {
     setError('');
@@ -40,12 +42,21 @@ function Game() {
       })
   }
 
+  const toggleTrivia = () => {
+    setTrivia(!trivia);
+  }
+
+  const hideTrivia = () => {
+    setTrivia(false);
+  }
+
   return (
     <div>
       <ScoreBoard teamSelected={teamSelected} setTeamSelected={setTeamSelected} />
-      <QuestionBox question={qa.question} currentQuestion={qa.currentQuestion} />
-      <AnswerBox responses={qa.responses} teamSelected={teamSelected} setError={setError} />
-      <Controlls currentQuestion={qa.currentQuestion} totalQuestions={totalQuestions} changeQuestion={setCurrentQuestion}/>
+      {!trivia &&  <QuestionBox question={qa.question} currentQuestion={qa.currentQuestion} />}
+      {!trivia && <AnswerBox responses={qa.responses} teamSelected={teamSelected} setError={setError} />}
+      <Controlls currentQuestion={qa.currentQuestion} totalQuestions={totalQuestions} changeQuestion={setCurrentQuestion} toggleTrivia={toggleTrivia} hideTrivia={hideTrivia} />
+      {trivia && <Trivia />}
       {error && <ErrorModal message={error.toString()} removeError={() => setError('')}/>}
       {loading && <Loading />}
     </div>

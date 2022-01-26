@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { REMOVE_WRONG_ASNWER, SET_TEAMS_INFO } from '../../actions/TeamsActions';
+import { NEXT_PLAYER, REMOVE_WRONG_ASNWER, SET_TEAMS_INFO } from '../../actions/TeamsActions';
 import { useTeams, useUpdateTeams } from '../../Providers/TeamsContext';
 import useLocalStorage from '../../customHooks/useLocalStorage';
 
@@ -30,6 +30,7 @@ const ScoreBoard = ({ teamSelected, setTeamSelected }) => {
         <div className="score-board">
             <div className="score-board-team-1">
                 <div className="player-list">
+                    {teamsInfo[0].players.length && <button onClick={() => updateTeams(NEXT_PLAYER, 0)}><i class="fas fa-step-forward"></i></button>}
                     {teamsInfo[0].players.map((player, i) => (
                         <p className={teamSelected == 0 ? 
                             (teamsInfo[0].currentPlayer === i ? "player-name player-selected" : "player-name")
@@ -76,6 +77,7 @@ const ScoreBoard = ({ teamSelected, setTeamSelected }) => {
                     </div>
                 </div>
                 <div className="player-list">
+                    {teamsInfo[0].players.length && <button onClick={() => updateTeams(NEXT_PLAYER, 1)}><i class="fas fa-step-forward"></i></button>}
                     {teamsInfo[1].players.map((player, i) => (
                         <p className={teamSelected == 1 ? 
                             (teamsInfo[1].currentPlayer === i ? "player-name player-selected" : "player-name")

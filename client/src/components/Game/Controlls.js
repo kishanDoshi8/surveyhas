@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Controlls = ({currentQuestion, totalQuestions, changeQuestion}) => {
+const Controlls = ({currentQuestion, totalQuestions, changeQuestion, toggleTrivia, hideTrivia}) => {
 
     const [emptyArray, setEmptyArray] = useState([])
 
@@ -10,23 +10,27 @@ const Controlls = ({currentQuestion, totalQuestions, changeQuestion}) => {
 
     const previousQuestion = () => {
         if(currentQuestion > 0) {
+            hideTrivia();
             changeQuestion(--currentQuestion);
         }
     }
 
     const nextQuestion = () => {
         if(currentQuestion <= totalQuestions) {
+            hideTrivia();
             changeQuestion(++currentQuestion);
         }
     }
 
     const goToQuestion = index => {
+        hideTrivia();
         changeQuestion(index);
     }
 
     return (
         <div className="controlls-panel">
             <span className="go-to">
+                <button onClick={e => toggleTrivia()}> ? </button>
                 {emptyArray.map((_, i) => (
                     <button key={i} onClick={() => goToQuestion(i+1)} className={i+1 === +currentQuestion ? "go-to-question active" : "go-to-question"}>{i+1}</button>
                 ))}
