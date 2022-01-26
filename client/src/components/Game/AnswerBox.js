@@ -3,6 +3,9 @@ import { ADD_SCORES, ADD_WRONG_ASNWER, NEXT_PLAYER, RESET_WRONG_ASNWER, SET_TEAM
 import Typewriter from '../../customHooks/Typewriter';
 import { useTeams, useUpdateTeams } from '../../Providers/TeamsContext';
 import useLocalStorage from '../../customHooks/useLocalStorage';
+import CorrectSound from '../../Assets/audio/correct_sound.mp3';
+import incorrectSound from '../../Assets/audio/incorrect_sound.mp3';
+import { Howl, Howler } from 'howler';
 
 export default function AnswerBox({ responses, teamSelected, setError }) {
 
@@ -44,6 +47,7 @@ export default function AnswerBox({ responses, teamSelected, setError }) {
         
         if(isKeyX) {
             updateTeams(ADD_WRONG_ASNWER, teamSelected);
+            playAudio(incorrectSound);
         } 
         
         const number = +event.key;
@@ -67,6 +71,7 @@ export default function AnswerBox({ responses, teamSelected, setError }) {
 
         Typewriter(responses[index].answer, answerDiv);
         setTimeout(() => {
+            playAudio(CorrectSound);
             var points = +responses[index].points;
             Typewriter(points.toString(), pointsDiv);
 
@@ -76,6 +81,15 @@ export default function AnswerBox({ responses, teamSelected, setError }) {
                 updateTeams(NEXT_PLAYER, teamSelected);
             }
         }, 1500);
+    }
+
+    const playAudio = src => {
+        var sound = new Howl({
+            src
+        })
+
+        sound.play();
+        Howler.volume(0.7);
     }
 
     return (
