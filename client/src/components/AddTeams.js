@@ -45,6 +45,10 @@ const AddTeams = () => {
                     <input onChange={updateTeamA} name="player3" className="add-player-name" type="text" placeholder="Player 3 name" />
                     <input onChange={updateTeamA} name="player4" className="add-player-name" type="text" placeholder="Player 4 name" />
                     <input onChange={updateTeamA} name="player5" className="add-player-name" type="text" placeholder="Player 5 name" />
+                    <input onChange={updateTeamA} name="player6" className="add-player-name" type="text" placeholder="Player 6 name" />
+                    <input onChange={updateTeamA} name="player7" className="add-player-name" type="text" placeholder="Player 7 name" />
+                    <input onChange={updateTeamA} name="player8" className="add-player-name" type="text" placeholder="Player 8 name" />
+                    <input onChange={updateTeamA} name="player9" className="add-player-name" type="text" placeholder="Player 9 name" />
                 </div>
                 <div className="add-team-2">
                     <input onChange={updateTeamB} name="team" className="add-team-name" type="text" placeholder="Team 2 name..." />
@@ -54,6 +58,10 @@ const AddTeams = () => {
                     <input onChange={updateTeamB} name="player3" className="add-player-name" type="text" placeholder="Player 3 name" />
                     <input onChange={updateTeamB} name="player4" className="add-player-name" type="text" placeholder="Player 4 name" />
                     <input onChange={updateTeamB} name="player5" className="add-player-name" type="text" placeholder="Player 5 name" />
+                    <input onChange={updateTeamB} name="player6" className="add-player-name" type="text" placeholder="Player 6 name" />
+                    <input onChange={updateTeamB} name="player7" className="add-player-name" type="text" placeholder="Player 7 name" />
+                    <input onChange={updateTeamB} name="player8" className="add-player-name" type="text" placeholder="Player 8 name" />
+                    <input onChange={updateTeamB} name="player9" className="add-player-name" type="text" placeholder="Player 9 name" />
                 </div>
             </div>
             <button id="btn-start-game" onClick={startGame}>Start game</button>
