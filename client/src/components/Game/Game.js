@@ -16,7 +16,7 @@ function Game() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [teamSelected, setTeamSelected] = useState(-1);
-  const [trivia, setTrivia] = useState(false);
+  const [trivia, setTrivia] = useState(true);
 
   useEffect(() => {
     setError('');
